@@ -1,12 +1,12 @@
 import {
     WebFieldProps,
-    WebFieldState,
     component,
-    mixinForm,
-    watch,
+    WebField,
+    observer,
     createCell,
     Fragment
 } from 'web-cell';
+import { observable } from 'mobx';
 
 export interface UploadHandler {
     progress?: {
@@ -31,23 +31,16 @@ export interface FileCellProps extends WebFieldProps {
     onUpload?(event: UploadEvent): any;
 }
 
-interface FileCellState extends WebFieldState {
-    percent: number;
-}
-
 @component({
-    tagName: 'file-cell',
-    renderTarget: 'children'
+    tagName: 'file-cell'
 })
-export class FileCell extends mixinForm<FileCellProps, FileCellState>() {
-    @watch
+@observer
+export class FileCell extends WebField<FileCellProps>() {
+    @observable
     transport: FileCellProps['transport'];
 
-    state = { percent: 0 };
-
-    get percent() {
-        return this.state.percent;
-    }
+    @observable
+    percent: number;
 
     formAssociatedCallback(form: HTMLFormElement) {
         form.addEventListener('submit', this.upload);
@@ -69,18 +62,19 @@ export class FileCell extends mixinForm<FileCellProps, FileCellState>() {
 
             if (progress)
                 for await (const { loaded } of progress)
-                    await this.setState({
-                        percent: ((finished + loaded) / sum) * 100
-                    });
+                    this.percent = ((finished + loaded) / sum) * 100;
+
             finished += file.size;
 
-            await this.setState({ percent: (finished / sum) * 100 });
+            this.percent = (finished / sum) * 100;
 
             this.emit('upload', { file, path: await path });
         }
     };
 
-    render({ defaultSlot }: FileCellProps, { percent }: FileCellState) {
+    render() {
+        const { defaultSlot, percent } = this;
+
         return (
             <>
                 <progress className="mb-2" value={percent} />

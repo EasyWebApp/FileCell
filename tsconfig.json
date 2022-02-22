@@ -6,7 +6,8 @@
         "jsx": "react",
         "jsxFactory": "createCell",
         "jsxFragmentFactory": "Fragment",
-        "lib": ["ES2021", "DOM", "DOM.Iterable"]
+        "lib": ["ES2021", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true
     },
     "include": ["source/*"],
     "typedocOptions": {

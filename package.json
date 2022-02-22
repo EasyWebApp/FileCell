@@ -1,6 +1,6 @@
 {
     "name": "file-cell",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "license": "LGPL-3.0",
     "author": "shiy2008@gmail.com",
     "description": "File Uploader element based on Web Components & WebCell v2",
@@ -25,21 +25,22 @@
     "module": "dist/index.esm.js",
     "main": "dist/index.js",
     "dependencies": {
-        "@swc/helpers": "^0.3.2",
+        "@swc/helpers": "^0.3.3",
+        "mobx": "^5.15.7",
         "regenerator-runtime": "^0.13.9",
-        "web-cell": "^2.4.0-rc.6"
+        "web-cell": "^3.0.0-beta.0"
     },
     "devDependencies": {
-        "@parcel/packager-ts": "^2.2.1",
-        "@parcel/transformer-typescript-types": "^2.2.1",
-        "element-internals-polyfill": "^0.1.54",
+        "@parcel/packager-ts": "^2.3.2",
+        "@parcel/transformer-typescript-types": "^2.3.2",
+        "element-internals-polyfill": "^1.0.0",
         "husky": "^7.0.4",
-        "lint-staged": "^12.3.3",
-        "parcel": "^2.2.1",
+        "lint-staged": "^12.3.4",
+        "parcel": "^2.3.2",
         "prettier": "^2.5.1",
-        "typedoc": "^0.22.11",
+        "typedoc": "^0.22.12",
         "typedoc-plugin-mdn-links": "^1.0.5",
-        "typescript": "~4.5.5"
+        "typescript": "~4.3.5"
     },
     "prettier": {
         "singleQuote": true,
